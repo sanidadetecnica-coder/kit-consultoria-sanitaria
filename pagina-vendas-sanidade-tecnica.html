@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit Consultoria Sanitária — Sanidade Técnica</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --verde: #0e3d2f;
+    --verde-medio: #1a5c44;
+    --verde-claro: #2d7a5a;
+    --dourado: #c9a84c;
+    --dourado-claro: #e8c97a;
+    --dourado-escuro: #a07830;
+    --creme: #f9f5ee;
+    --branco: #ffffff;
+    --texto-escuro: #0a2218;
+    --texto-cinza: #5a6e65;
+    --borda: rgba(201,168,76,0.25);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--creme);
+    color: var(--texto-escuro);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--verde);
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(201,168,76,0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 90% 90%, rgba(201,168,76,0.05) 0%, transparent 60%);
+  }
+
+  .hex-bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .hex-bg svg {
+    position: absolute;
+    opacity: 0.05;
+  }
+  .hex-bg svg:nth-child(1) { top: -5%; right: -3%; width: 38%; }
+  .hex-bg svg:nth-child(2) { bottom: -8%; left: -4%; width: 32%; }
+  .hex-bg svg:nth-child(3) { top: 40%; left: 60%; width: 18%; opacity: 0.03; }
+
+  .hero-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 32px 60px;
+    text-align: center;
+  }
+
+  .logo-hero {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .logo-hex {
+    width: 52px;
+    height: 52px;
+  }
+
+  .logo-text {
+    text-align: left;
+  }
+
+  .logo-text span:first-child {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--branco);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .logo-text span:last-child {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.72rem;
+    color: var(--dourado);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+
+  .badge-top {
+    display: inline-block;
+    background: rgba(201,168,76,0.15);
+    border: 1px solid rgba(201,168,76,0.4);
+    color: var(--dourado-claro);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 2px;
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.15s forwards;
+  }
+
+  .hero-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.6rem, 6vw, 4.2rem);
+    font-weight: 900;
+    color: var(--branco);
+    line-height: 1.1;
+    margin-bottom: 12px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.25s forwards;
+  }
+
+  .hero-titulo em {
+    font-style: normal;
+    color: var(--dourado);
+  }
+
+  .hero-sub {
+    font-size: 1.15rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.7);
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.35s forwards;
+  }
+
+  .hero-sub strong {
+    color: var(--branco);
+    font-weight: 500;
+  }
+
+  .hero-numeros {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.45s forwards;
+    flex-wrap: wrap;
+  }
+
+  .numero-item {
+    text-align: center;
+  }
+
+  .numero-item .num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: var(--dourado);
+    display: block;
+    line-height: 1;
+  }
+
+  .numero-item .label {
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+    display: block;
+  }
+
+  .separador-numero {
+    width: 1px;
+    background: rgba(201,168,76,0.2);
+    height: 50px;
+    align-self: center;
+  }
+
+  .btn-cta-hero {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-escuro));
+    color: var(--texto-escuro);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 20px 52px;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 32px rgba(201,168,76,0.3);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.55s forwards;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-cta-hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .btn-cta-hero:hover::before { left: 100%; }
+  .btn-cta-hero:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,168,76,0.45);
+  }
+
+  .hero-garantia {
+    margin-top: 20px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.05em;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.65s forwards;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeUp 1s ease 1s forwards;
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(201,168,76,0.6), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* ── DOR ── */
+  .dor {
+    background: var(--branco);
+    padding: 100px 32px;
+  }
+
+  .container { max-width: 960px; margin: 0 auto; }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dourado-escuro);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .section-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.9rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--verde);
+    line-height: 1.2;
+    margin-bottom: 20px;
+  }
+
+  .section-titulo em {
+    font-style: normal;
+    color: var(--dourado-escuro);
+  }
+
+  .dor-intro {
+    font-size: 1.1rem;
+    color: var(--texto-cinza);
+    max-width: 640px;
+    line-height: 1.8;
+    margin-bottom: 56px;
+  }
+
+  .dor-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .dor-item {
+    border: 1px solid #e8e0d4;
+    padding: 32px 28px;
+    border-radius: 4px;
+    position: relative;
+    background: var(--creme);
+    transition: border-color 0.3s ease;
+  }
+
+  .dor-item:hover { border-color: var(--dourado); }
+
+  .dor-icon {
+    font-size: 1.6rem;
+    margin-bottom: 14px;
+    display: block;
+  }
+
+  .dor-item h3 {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--verde);
+    margin-bottom: 8px;
+  }
+
+  .dor-item p {
+    font-size: 0.9rem;
+    color: var(--texto-cinza);
+    line-height: 1.7;
+  }
+
+  /* ── SOLUÇÃO / KIT ── */
+  .kit {
+    background: var(--verde);
+    padding: 100px 32px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .kit::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 50%;
+    height: 100%;
+    background: radial-gradient(ellipse at 80% 50%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+
+  .kit .section-label { color: var(--dourado); }
+  .kit .section-titulo { color: var(--branco); }
+  .kit .section-titulo em { color: var(--dourado); }
+
+  .kit-desc {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.65);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 64px;
+  }
+
+  .modulos-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+
+  .modulo-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(201,168,76,0.2);
+    border-radius: 4px;
+    padding: 32px 28px;
+    transition: all 0.3s ease;
+  }
+
+  .modulo-card:hover {
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(201,168,76,0.5);
+    transform: translateY(-3px);
+  }
+
+  .modulo-numero {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    color: var(--dourado);
+    margin-bottom: 12px;
+    display: block;
+  }
+
+  .modulo-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--branco);
+    margin-bottom: 12px;
+    line-height: 1.3;
+  }
+
+  .modulo-card p {
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.5);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  .modulo-count {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--dourado);
+    letter-spacing: 0.1em;
+    padding: 4px 10px;
+    border: 1px solid rgba(201,168,76,0.3);
+    border-radius: 2px;
+    display: inline-block;
+  }
+
+  /* ── O QUE VOCÊ RECEBE ── */
+  .recebe {
+    background: var(--creme);
+    padding: 100px 32px;
+  }
+
+  .recebe-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .recebe-lista {
+    list-style: none;
+  }
+
+  .recebe-lista li {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid #e8e0d4;
+    font-size: 0.95rem;
+    color: var(--texto-escuro);
+    line-height: 1.6;
+  }
+
+  .recebe-lista li:last-child { border-bottom: none; }
+
+  .check-icon {
+    flex-shrink: 0;
+    width: 22px;
+    height: 22px;
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-escuro));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .check-icon svg { width: 11px; height: 11px; }
+
+  .recebe-destaque {
+    background: var(--verde);
+    border-radius: 6px;
+    padding: 48px 40px;
+    position: sticky;
+    top: 32px;
+  }
+
+  .recebe-destaque .section-label { color: var(--dourado); margin-bottom: 24px; }
+
+  .total-itens {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    font-weight: 900;
+    color: var(--dourado);
+    display: block;
+    line-height: 1;
+  }
+
+  .total-label {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 32px;
+    display: block;
+  }
+
+  .destaque-items {
+    list-style: none;
+    margin-bottom: 40px;
+  }
+
+  .destaque-items li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .destaque-items li span.dot {
+    width: 6px;
+    height: 6px;
+    background: var(--dourado);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── PARA QUEM ── */
+  .para-quem {
+    background: var(--branco);
+    padding: 100px 32px;
+  }
+
+  .para-quem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    margin-top: 56px;
+  }
+
+  .pq-card {
+    padding: 36px 28px;
+    border-radius: 4px;
+    text-align: center;
+  }
+
+  .pq-card.verde {
+    background: var(--verde);
+    color: var(--branco);
+  }
+
+  .pq-card.dourado-borda {
+    border: 2px solid var(--dourado);
+    background: transparent;
+  }
+
+  .pq-card.creme {
+    background: var(--creme);
+  }
+
+  .pq-emoji {
+    font-size: 2rem;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .pq-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: inherit;
+  }
+
+  .pq-card.verde h3 { color: var(--dourado); }
+  .pq-card.dourado-borda h3 { color: var(--verde); }
+  .pq-card.creme h3 { color: var(--verde); }
+
+  .pq-card p {
+    font-size: 0.875rem;
+    line-height: 1.7;
+    opacity: 0.75;
+  }
+
+  /* ── PRECO ── */
+  .preco {
+    background: var(--creme);
+    padding: 100px 32px;
+  }
+
+  .preco-box {
+    max-width: 680px;
+    margin: 0 auto;
+    background: var(--verde);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(14,61,47,0.25);
+  }
+
+  .preco-header {
+    background: linear-gradient(135deg, var(--verde-medio), var(--verde));
+    padding: 48px 52px 40px;
+    border-bottom: 1px solid rgba(201,168,76,0.2);
+    text-align: center;
+  }
+
+  .preco-nome {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--dourado);
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .preco-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    color: var(--branco);
+    font-weight: 700;
+    margin-bottom: 32px;
+  }
+
+  .preco-valor {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 8px;
+  }
+
+  .preco-cifrao {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: var(--dourado);
+  }
+
+  .preco-numero {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    font-weight: 900;
+    color: var(--branco);
+    line-height: 1;
+  }
+
+  .preco-cents {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.5);
+  }
+
+  .preco-parcela {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 4px;
+  }
+
+  .preco-acesso {
+    font-size: 0.78rem;
+    color: var(--dourado);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  .preco-body {
+    padding: 40px 52px 48px;
+  }
+
+  .preco-includes {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+
+  .preco-includes li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.75);
+  }
+
+  .preco-includes li .dot-dourado {
+    width: 5px;
+    height: 5px;
+    background: var(--dourado);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .btn-cta-preco {
+    display: block;
+    width: 100%;
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-escuro));
+    color: var(--texto-escuro);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 22px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(201,168,76,0.25);
+  }
+
+  .btn-cta-preco:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 36px rgba(201,168,76,0.4);
+  }
+
+  .preco-seguro {
+    text-align: center;
+    margin-top: 16px;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── FAQ ── */
+  .faq {
+    background: var(--branco);
+    padding: 100px 32px;
+  }
+
+  .faq-list {
+    max-width: 720px;
+    margin: 56px auto 0;
+  }
+
+  .faq-item {
+    border-bottom: 1px solid #e8e0d4;
+    padding: 28px 0;
+  }
+
+  .faq-pergunta {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
+    color: var(--verde);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .faq-pergunta .faq-arrow {
+    flex-shrink: 0;
+    width: 20px;
+    height: 20px;
+    background: rgba(201,168,76,0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    color: var(--dourado-escuro);
+    font-size: 0.8rem;
+  }
+
+  .faq-item.open .faq-arrow { transform: rotate(45deg); }
+
+  .faq-resposta {
+    font-size: 0.925rem;
+    color: var(--texto-cinza);
+    line-height: 1.8;
+    margin-top: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease, margin-top 0.3s ease;
+  }
+
+  .faq-item.open .faq-resposta {
+    max-height: 300px;
+    margin-top: 16px;
+  }
+
+  /* ── CTA FINAL ── */
+  .cta-final {
+    background: var(--verde);
+    padding: 120px 32px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-final::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 50% 0%, rgba(201,168,76,0.07) 0%, transparent 70%);
+  }
+
+  .cta-final .section-label { color: var(--dourado); margin-bottom: 20px; }
+
+  .cta-final-titulo {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 5vw, 3.4rem);
+    font-weight: 900;
+    color: var(--branco);
+    max-width: 680px;
+    margin: 0 auto 20px;
+    line-height: 1.15;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-final-titulo em {
+    font-style: normal;
+    color: var(--dourado);
+  }
+
+  .cta-final-sub {
+    font-size: 1.05rem;
+    color: rgba(255,255,255,0.55);
+    max-width: 480px;
+    margin: 0 auto 48px;
+    line-height: 1.8;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--texto-escuro);
+    padding: 40px 32px;
+    text-align: center;
+  }
+
+  .footer-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  footer p {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.8;
+  }
+
+  footer a {
+    color: rgba(255,255,255,0.4);
+    text-decoration: none;
+  }
+
+  /* ── BARRA FIXA ── */
+  .barra-fixa {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--verde);
+    border-top: 1px solid rgba(201,168,76,0.3);
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 100;
+    box-shadow: 0 -8px 32px rgba(0,0,0,0.3);
+    transform: translateY(100%);
+    transition: transform 0.4s ease;
+  }
+
+  .barra-fixa.visible { transform: translateY(0); }
+
+  .barra-preco {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .barra-preco span:first-child {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .barra-preco strong {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: var(--branco);
+  }
+
+  .barra-preco strong em {
+    font-style: normal;
+    color: var(--dourado);
+  }
+
+  .btn-barra {
+    background: linear-gradient(135deg, var(--dourado), var(--dourado-escuro));
+    color: var(--texto-escuro);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 14px 32px;
+    text-decoration: none;
+    border-radius: 3px;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+
+  .btn-barra:hover { transform: translateY(-1px); }
+
+  /* ── ANIMAÇÕES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVO ── */
+  @media (max-width: 768px) {
+    .recebe-layout {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+
+    .recebe-destaque {
+      position: static;
+    }
+
+    .hero-numeros { gap: 24px; }
+    .separador-numero { display: none; }
+    .preco-header, .preco-body { padding-left: 32px; padding-right: 32px; }
+    .barra-fixa { padding: 12px 16px; }
+    .barra-preco strong { font-size: 1.2rem; }
+    .btn-barra { padding: 12px 20px; font-size: 0.78rem; }
+  }
+
+  @media (max-width: 500px) {
+    .hero-inner { padding: 60px 20px 50px; }
+    .preco-header, .preco-body { padding-left: 24px; padding-right: 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- BARRA FIXA -->
+<div class="barra-fixa" id="barraFixa">
+  <div class="barra-preco">
+    <span>Kit Consultoria Sanitária</span>
+    <strong>R$<em>247</em></strong>
+  </div>
+  <a href="https://pay.kiwify.com.br/4JTy5Ns" class="btn-barra">Quero o Kit Agora →</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hex-bg">
+    <svg viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,5 195,55 195,175 100,225 5,175 5,55" stroke="#c9a84c" stroke-width="1" fill="none"/>
+      <polygon points="100,25 175,67 175,163 100,205 25,163 25,67" stroke="#c9a84c" stroke-width="0.5" fill="none"/>
+    </svg>
+    <svg viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,5 195,55 195,175 100,225 5,175 5,55" stroke="#c9a84c" stroke-width="1" fill="none"/>
+    </svg>
+    <svg viewBox="0 0 200 230" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <polygon points="100,5 195,55 195,175 100,225 5,175 5,55" stroke="#c9a84c" stroke-width="1" fill="none"/>
+    </svg>
+  </div>
+
+  <div class="hero-inner">
+    <div class="logo-hero">
+      <svg class="logo-hex" viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="26,2 50,15 50,45 26,58 2,45 2,15" stroke="#c9a84c" stroke-width="1.5" fill="rgba(201,168,76,0.08)"/>
+        <polygon points="26,8 44,18 44,42 26,52 8,42 8,18" stroke="#c9a84c" stroke-width="0.5" fill="none" stroke-dasharray="2 4"/>
+        <polyline points="16,30 23,37 36,23" stroke="#c9a84c" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      <div class="logo-text">
+        <span>Sanidade Técnica</span>
+        <span>A dose certa de sanidade</span>
+      </div>
+    </div>
+
+    <span class="badge-top">Kit Profissional Completo · RDC 216/2004</span>
+
+    <h1 class="hero-titulo">
+      Tudo que você precisa para<br>
+      <em>atender seu primeiro cliente</em><br>
+      com autoridade
+    </h1>
+
+    <p class="hero-sub">
+      51 documentos técnicos prontos, editáveis e baseados na legislação vigente.<br>
+      <strong>Chegue ao cliente com o kit completo. Saia com o contrato assinado.</strong>
+    </p>
+
+    <div class="hero-numeros">
+      <div class="numero-item">
+        <span class="num">51</span>
+        <span class="label">Documentos</span>
+      </div>
+      <div class="separador-numero"></div>
+      <div class="numero-item">
+        <span class="num">7</span>
+        <span class="label">Módulos</span>
+      </div>
+      <div class="separador-numero"></div>
+      <div class="numero-item">
+        <span class="num">10</span>
+        <span class="label">POPs Prontos</span>
+      </div>
+      <div class="separador-numero"></div>
+      <div class="numero-item">
+        <span class="num">RDC</span>
+        <span class="label">216/2004</span>
+      </div>
+    </div>
+
+    <a href="https://pay.kiwify.com.br/4JTy5Ns" class="btn-cta-hero">Quero o Kit — R$ 247</a>
+
+    <p class="hero-garantia">🔒 Compra segura · Acesso imediato · Pagamento processado pela Kiwify</p>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- DOR -->
+<section class="dor">
+  <div class="container">
+    <span class="section-label reveal">O problema</span>
+    <h2 class="section-titulo reveal">Você tem o conhecimento.<br>Falta <em>o material pronto.</em></h2>
+    <p class="dor-intro reveal">Iniciar uma consultoria em segurança alimentar exige muito mais do que dominar a legislação — exige chegar ao cliente com tudo na mão, do diagnóstico ao contrato.</p>
+
+    <div class="dor-grid">
+      <div class="dor-item reveal">
+        <span class="dor-icon">📄</span>
+        <h3>Criar documentação do zero é lento</h3>
+        <p>Horas formatando Manual de BPF, POPs e planilhas que poderiam ser dedicadas a atender clientes e gerar renda.</p>
+      </div>
+      <div class="dor-item reveal">
+        <span class="dor-icon">⚖️</span>
+        <h3>Medo de entregar algo fora da lei</h3>
+        <p>A RDC 216/2004 tem exigências específicas. Um documento errado pode comprometer você e seu cliente perante a Vigilância Sanitária.</p>
+      </div>
+      <div class="dor-item reveal">
+        <span class="dor-icon">💼</span>
+        <h3>Falta de ferramentas comerciais</h3>
+        <p>Proposta comercial, contrato, guia de precificação — sem isso, fica difícil fechar contratos com segurança e profissionalismo.</p>
+      </div>
+      <div class="dor-item reveal">
+        <span class="dor-icon">🎯</span>
+        <h3>Insegurança na primeira visita</h3>
+        <p>Não saber exatamente o que levar, o que avaliar e como apresentar o diagnóstico faz você perder credibilidade — e o cliente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KIT -->
+<section class="kit">
+  <div class="container">
+    <span class="section-label reveal">A solução</span>
+    <h2 class="section-titulo reveal">Kit Consultoria Sanitária —<br><em>Documentação Completa</em></h2>
+    <p class="kit-desc reveal">Tudo que um consultor em Boas Práticas precisa para atender com método, eficiência e respaldo legal — organizado em módulos prontos para uso imediato.</p>
+
+    <div class="modulos-grid">
+      <div class="modulo-card reveal">
+        <span class="modulo-numero">Módulo 01</span>
+        <h3>Documentação Técnica Obrigatória</h3>
+        <p>Manual de Boas Práticas completo + 10 POPs prontos e editáveis, alinhados à RDC 216/2004.</p>
+        <span class="modulo-count">11 documentos</span>
+      </div>
+      <div class="modulo-card reveal">
+        <span class="modulo-numero">Módulo 02</span>
+        <h3>Planilhas de Controle</h3>
+        <p>14 planilhas para controle de temperatura, higienização, recebimento, saúde dos manipuladores e mais.</p>
+        <span class="modulo-count">16 planilhas</span>
+      </div>
+      <div class="modulo-card reveal">
+        <span class="modulo-numero">Módulo 03</span>
+        <h3>Ferramentas de Campo</h3>
+        <p>Relatório de visita inicial, diagnóstico sanitário completo e ficha técnica de preparação.</p>
+        <span class="modulo-count">3 documentos</span>
+      </div>
+      <div class="modulo-card reveal">
+        <span class="modulo-numero">Módulo 04</span>
+        <h3>Ferramentas Comerciais</h3>
+        <p>Proposta comercial, contrato de prestação de serviços, guia de precificação e checklist de visita.</p>
+        <span class="modulo-count">4 documentos</span>
+      </div>
+      <div class="modulo-card reveal">
+        <span class="modulo-numero">Bônus 01</span>
+        <h3>Cartazes Educativos</h3>
+        <p>14 cartazes prontos para fixar no estabelecimento do cliente — lavagem de mãos, temperatura, descarte de óleo e mais.</p>
+        <span class="modulo-count">14 cartazes</span>
+      </div>
+      <div class="modulo-card reveal">
+        <span class="modulo-numero">Bônus 02</span>
+        <h3>Guia do Primeiro Cliente</h3>
+        <p>Como prospectar, apresentar proposta, fechar contrato e começar a faturar com sua consultoria.</p>
+        <span class="modulo-count">Guia completo</span>
+      </div>
+      <div class="modulo-card reveal">
+        <span class="modulo-numero">Bônus 03</span>
+        <h3>Treinamento Pronto para Aplicar</h3>
+        <p>Duas apresentações em PowerPoint editáveis: Boas Práticas de Fabricação (8 blocos) e Higienização na Prática. Use direto com a equipe do seu cliente.</p>
+        <span class="modulo-count">2 apresentações</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- O QUE VOCÊ RECEBE -->
+<section class="recebe">
+  <div class="container">
+    <div class="recebe-layout">
+      <div>
+        <span class="section-label reveal">Conteúdo detalhado</span>
+        <h2 class="section-titulo reveal">Cada item que<br>você <em>recebe</em></h2>
+        <ul class="recebe-lista">
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Manual de Boas Práticas (MBP) — modelo completo conforme RDC 216
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            10 POPs obrigatórios prontos e editáveis (higienização, pragas, água, manipuladores e mais)
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            14 planilhas de controle operacional (temperatura, higiene, recebimento, exames, potabilidade...)
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Relatório de diagnóstico sanitário e relatório de visita inicial
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Proposta comercial e contrato de prestação de serviços prontos
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Guia de precificação com tabela de referência de mercado
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            14 cartazes educativos em alta resolução para fixar no estabelecimento
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            2 apresentações PowerPoint editáveis de treinamento (BPF + Higienização)
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Guia completo: Como Conseguir seu Primeiro Cliente de Consultoria
+          </li>
+          <li class="reveal">
+            <div class="check-icon"><svg viewBox="0 0 12 12" fill="none"><polyline points="2,6 5,9 10,3" stroke="#0a2218" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+            Escala de tarefas e responsáveis + Ficha técnica de preparação
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <div class="recebe-destaque reveal">
+          <span class="section-label">Resumo do kit</span>
+          <span class="total-itens">51</span>
+          <span class="total-label">itens no total</span>
+
+          <ul class="destaque-items">
+            <li><span class="dot"></span> 11 documentos técnicos</li>
+            <li><span class="dot"></span> 16 planilhas de controle</li>
+            <li><span class="dot"></span> 3 ferramentas de campo</li>
+            <li><span class="dot"></span> 4 ferramentas comerciais</li>
+            <li><span class="dot"></span> 14 cartazes educativos</li>
+            <li><span class="dot"></span> 2 apresentações de treinamento</li>
+            <li><span class="dot"></span> 1 guia de captação de clientes</li>
+          </ul>
+
+          <a href="https://pay.kiwify.com.br/4JTy5Ns" class="btn-cta-preco">Quero o Kit — R$ 247</a>
+          <p class="preco-seguro" style="color:rgba(255,255,255,0.3); font-size:0.75rem; text-align:center; margin-top:14px;">Acesso imediato após o pagamento</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PARA QUEM -->
+<section class="para-quem">
+  <div class="container">
+    <span class="section-label reveal">Indicado para</span>
+    <h2 class="section-titulo reveal">Este kit é para <em>você</em> se…</h2>
+
+    <div class="para-quem-grid">
+      <div class="pq-card verde reveal">
+        <span class="pq-emoji">🎓</span>
+        <h3>Está começando agora</h3>
+        <p>Nutricionista, veterinário, engenheiro de alimentos ou técnico que quer montar sua própria consultoria e não sabe por onde começar.</p>
+      </div>
+      <div class="pq-card dourado-borda reveal">
+        <span class="pq-emoji">📋</span>
+        <h3>Já atende, mas perde tempo</h3>
+        <p>Você faz consultoria mas ainda cria documentos do zero para cada cliente. Quero parar de reinventar a roda e usar modelos prontos.</p>
+      </div>
+      <div class="pq-card creme reveal">
+        <span class="pq-emoji">🏪</span>
+        <h3>Quer se adequar à RDC 216</h3>
+        <p>Responsável técnico de estabelecimento alimentício que precisa de documentação completa, organizada e conforme a Vigilância Sanitária.</p>
+      </div>
+      <div class="pq-card verde reveal">
+        <span class="pq-emoji">💡</span>
+        <h3>Quer profissionalizar a entrega</h3>
+        <p>Tem o conhecimento técnico mas falta um padrão profissional de apresentação que transmita autoridade e credibilidade ao cliente.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREÇO -->
+<section class="preco">
+  <div class="container">
+    <div style="text-align:center; margin-bottom: 56px;">
+      <span class="section-label reveal" style="display:block;">Investimento</span>
+      <h2 class="section-titulo reveal" style="max-width:500px; margin:0 auto;">Acesso completo<br>por <em>apenas</em></h2>
+    </div>
+
+    <div class="preco-box reveal">
+      <div class="preco-header">
+        <span class="preco-nome">Kit Consultoria Sanitária — Documentação Completa</span>
+        <p class="preco-titulo">Sanidade Técnica™</p>
+        <div class="preco-valor">
+          <span class="preco-cifrao">R$</span>
+          <span class="preco-numero">247</span>
+        </div>
+        <p class="preco-parcela">pagamento único · sem mensalidade</p>
+        <p class="preco-acesso">✓ Acesso imediato e vitalício</p>
+      </div>
+
+      <div class="preco-body">
+        <ul class="preco-includes">
+          <li><span class="dot-dourado"></span> 51 documentos, planilhas e materiais completos</li>
+          <li><span class="dot-dourado"></span> Manual de BPF + 10 POPs baseados na RDC 216/2004</li>
+          <li><span class="dot-dourado"></span> 14 planilhas de controle operacional editáveis</li>
+          <li><span class="dot-dourado"></span> Proposta comercial + contrato prontos</li>
+          <li><span class="dot-dourado"></span> 14 cartazes educativos em alta resolução</li>
+          <li><span class="dot-dourado"></span> 2 apresentações de treinamento em PowerPoint</li>
+          <li><span class="dot-dourado"></span> Guia do Primeiro Cliente de Consultoria</li>
+          <li><span class="dot-dourado"></span> Acesso via área de membros · sem prazo de expiração</li>
+        </ul>
+
+        <a href="https://pay.kiwify.com.br/4JTy5Ns" class="btn-cta-preco">Quero o Kit Agora — R$ 247 →</a>
+        <p class="preco-seguro">🔒 Pagamento seguro · Cartão, PIX ou boleto · Processado pela Kiwify</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="container">
+    <span class="section-label reveal" style="display:block; text-align:center;">Dúvidas frequentes</span>
+    <h2 class="section-titulo reveal" style="text-align:center; max-width:500px; margin:0 auto 0;">Perguntas<br><em>frequentes</em></h2>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <div class="faq-pergunta" onclick="toggleFaq(this)">
+          Quando recebo o acesso após a compra?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-resposta">O acesso é imediato. Assim que o pagamento for confirmado, você receberá as instruções por e-mail para acessar a área de membros com todos os materiais.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-pergunta" onclick="toggleFaq(this)">
+          Os documentos são editáveis?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-resposta">Sim. Todos os documentos — POPs, planilhas, proposta comercial, contrato — são entregues em formato editável para você personalizar com os dados do seu cliente e da sua consultoria.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-pergunta" onclick="toggleFaq(this)">
+          Os documentos estão de acordo com a legislação vigente?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-resposta">Sim. Todos os documentos técnicos foram elaborados com base na RDC 216/2004 da ANVISA, que é a principal legislação que rege as Boas Práticas para serviços de alimentação no Brasil.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-pergunta" onclick="toggleFaq(this)">
+          Posso usar os documentos com vários clientes?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-resposta">O kit é licenciado para uso profissional pelo comprador. Você pode adaptar e utilizar os modelos com os estabelecimentos que você atende como consultor, personalizando para cada cliente.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-pergunta" onclick="toggleFaq(this)">
+          Serve para qualquer tipo de estabelecimento alimentício?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-resposta">O kit foi desenvolvido para serviços de alimentação — restaurantes, lanchonetes, padarias, cozinhas industriais, catering e similares — que são regidos pela RDC 216/2004. Para indústrias (regidas pela RDC 275), alguns documentos podem precisar de adaptação.</div>
+      </div>
+      <div class="faq-item reveal">
+        <div class="faq-pergunta" onclick="toggleFaq(this)">
+          Por quanto tempo tenho acesso?
+          <span class="faq-arrow">+</span>
+        </div>
+        <div class="faq-resposta">O acesso é vitalício. Você paga uma vez e tem acesso permanente à área de membros, incluindo futuras atualizações dos materiais.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-final">
+  <div class="container" style="position:relative; z-index:1;">
+    <span class="section-label reveal">Está pronto?</span>
+    <h2 class="cta-final-titulo reveal">Comece sua consultoria<br>com <em>tudo na mão.</em></h2>
+    <p class="cta-final-sub reveal">51 documentos prontos, legislação correta, ferramentas comerciais e treinamento. Por R$ 247, com acesso imediato.</p>
+    <a href="https://pay.kiwify.com.br/4JTy5Ns" class="btn-cta-hero reveal" style="animation: none; opacity:1;">Quero o Kit Agora — R$ 247 →</a>
+    <p class="hero-garantia reveal" style="animation:none; opacity:0.5; margin-top:16px;">🔒 Compra segura · Kiwify · Acesso imediato</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">
+    <svg width="28" height="32" viewBox="0 0 52 60" fill="none">
+      <polygon points="26,2 50,15 50,45 26,58 2,45 2,15" stroke="#c9a84c" stroke-width="1.5" fill="rgba(201,168,76,0.1)"/>
+      <polyline points="16,30 23,37 36,23" stroke="#c9a84c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    </svg>
+    <span style="font-family:'DM Sans',sans-serif; font-weight:600; color:rgba(255,255,255,0.6); font-size:0.9rem; letter-spacing:0.1em; text-transform:uppercase;">Sanidade Técnica™</span>
+  </div>
+  <p>A dose certa de sanidade para sua consultoria.<br>
+  <a href="https://instagram.com/sanidadetecnica">@sanidadetecnica</a> · 
+  <a href="https://pay.kiwify.com.br/4JTy5Ns">Comprar Kit</a>
+  </p>
+  <p style="margin-top:12px; opacity:0.4;">© 2026 Sanidade Técnica™ · Todos os direitos reservados</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // Barra fixa
+  const barra = document.getElementById('barraFixa');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 500) barra.classList.add('visible');
+    else barra.classList.remove('visible');
+  });
+
+  // FAQ
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!isOpen) item.classList.add('open');
+  }
+</script>
+
+</body>
+</html>
